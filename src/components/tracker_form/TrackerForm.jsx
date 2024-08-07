@@ -1,10 +1,12 @@
 import React from 'react'
 
+import styles from './TrackerForm.module.scss'
+
 function TrackerForm() {
     return (
-        <form>
-            <span>Add new activity</span>
-            
+        <form className={styles.tracker_form}>
+            <span className={styles.title}>Add new activity:</span>
+
             <input type="text" placeholder='Start time' />
             <input type="text" placeholder='Finish time' />
             <input type="text" placeholder='Distance' />

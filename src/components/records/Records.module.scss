@@ -1,0 +1,27 @@
+@import '../../styles/variables';
+
+.records {
+    background-color: $records-color;
+    margin-top: 10px;
+    padding: 15px;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius-small;
+    -webkit-border-radius: $border-radius-small;
+    -moz-border-radius: $border-radius-small;
+    -ms-border-radius: $border-radius-small;
+    -o-border-radius: $border-radius-small;
+
+    .title {
+        text-align: center;
+
+        &:nth-child(3) {
+            margin-top: 15px;
+        }
+    }
+
+    .data {
+        display: flex;
+        padding-top: 10px;
+        justify-content: space-evenly;
+    }
+}

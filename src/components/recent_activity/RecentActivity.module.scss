@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+
+.activity {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+    padding: 8px 0;
+    background-color: $recent-activity-color;
+    border: $border-width solid $border-color;
+    border-radius: $border-radius-small;
+    -webkit-border-radius: $border-radius-small;
+    -moz-border-radius: $border-radius-small;
+    -ms-border-radius: $border-radius-small;
+    -o-border-radius: $border-radius-small;
+}

@@ -1,0 +1,12 @@
+.activities_data {
+    display: flex;
+    gap: 10px;
+
+    .recent_activities {
+        flex-grow: 6;
+    }
+
+    .summarized_activities {
+        flex-grow: 4;
+    }
+}

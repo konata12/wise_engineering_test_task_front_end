@@ -1,8 +1,10 @@
 import React from 'react'
 
+import styles from './Header.module.scss'
+
 function Header() {
     return (
-        <div>Activity tracker</div>
+        <h1>Activity tracker</h1>
     )
 }
 
