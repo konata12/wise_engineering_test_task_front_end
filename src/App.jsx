@@ -6,18 +6,37 @@ import RecentActivity from "./components/recent_activity/RecentActivity";
 
 import styles from './App.module.scss'
 
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getOutdoorActivities } from "./redux/outdoor_activity/outdoorActivity";
+
 function App() {
+  const dispatch = useDispatch()
+  const { activities } = useSelector(state => state.outdoorActivity)
+
+  const parsedActivities = activities
+  console.log(activities, 1111111111)
+
+  useEffect(() => {
+    dispatch(getOutdoorActivities())
+  }, [dispatch])
+
   return (
     <div className="container">
       <Header></Header>
       <TrackerForm></TrackerForm>
       <div className={styles.activities_data}>
         <div className={styles.recent_activities}>
-          <RecentActivity></RecentActivity>
-          <RecentActivity></RecentActivity>
-          <RecentActivity></RecentActivity>
-          <RecentActivity></RecentActivity>
-          <RecentActivity></RecentActivity>
+          {
+            parsedActivities.map((activity, i) => <RecentActivity
+              key={i}
+              date={activity.date}
+              activityType={activity.activityType}
+              distance={activity.distance}
+              time={activity.time}
+              speed={activity.speed}
+            />)
+          }
         </div>
         <div className={styles.summarized_activities}>
           <Records></Records>
