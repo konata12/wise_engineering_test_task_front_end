@@ -7,15 +7,14 @@ import RecentActivity from "./components/recent_activity/RecentActivity";
 import styles from './App.module.scss'
 
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { getOutdoorActivities } from "./redux/outdoor_activity/outdoorActivity";
+import { useEffect } from "react";
 
 function App() {
   const dispatch = useDispatch()
   const { activities } = useSelector(state => state.outdoorActivity)
-
+  console.log(activities)
   const parsedActivities = activities
-  console.log(activities, 1111111111)
 
   useEffect(() => {
     dispatch(getOutdoorActivities())
