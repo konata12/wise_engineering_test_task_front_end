@@ -10,12 +10,12 @@ function Total() {
         <div className={styles.total}>
             <div className={styles.data}>
                 <span>Total ride distance:</span>
-                <span>{totalRideDistance}</span>
+                <span>{totalRideDistance} km</span>
             </div>
 
             <div className={styles.data}>
                 <span>Total ride distance:</span>
-                <span>{totalRunDistance}</span>
+                <span>{totalRunDistance} km</span>
             </div>
         </div>
     )

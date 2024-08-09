@@ -14,7 +14,6 @@ function App() {
   const dispatch = useDispatch()
   const { activities } = useSelector(state => state.outdoorActivity)
   console.log(activities)
-  const parsedActivities = activities
 
   useEffect(() => {
     dispatch(getOutdoorActivities())
@@ -27,14 +26,15 @@ function App() {
       <div className={styles.activities_data}>
         <div className={styles.recent_activities}>
           {
-            parsedActivities.map((activity, i) => <RecentActivity
+            activities ? activities.map((activity, i) => <RecentActivity
               key={i}
               date={activity.date}
               activityType={activity.activityType}
               distance={activity.distance}
               time={activity.time}
               speed={activity.speed}
-            />)
+            />) :
+              null
           }
         </div>
         <div className={styles.summarized_activities}>

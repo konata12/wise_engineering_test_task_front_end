@@ -12,4 +12,15 @@
     -moz-border-radius: $border-radius-small;
     -ms-border-radius: $border-radius-small;
     -o-border-radius: $border-radius-small;
+
+    
+
+    span {
+        width: 20%;
+        text-align: left;
+
+        &:nth-child(1) {
+            padding-left: 10px;
+        }
+    }
 }

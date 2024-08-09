@@ -14,5 +14,17 @@
     .data {
         display: flex;
         justify-content: space-evenly;
+
+        span {
+
+            &:nth-child(1) {
+                width: 60%;
+                text-align: center;
+            }
+    
+            &:nth-child(2) {
+                width: 40%;
+            }
+        }
     }
 }

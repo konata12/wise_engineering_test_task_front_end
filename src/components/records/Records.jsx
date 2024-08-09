@@ -2,6 +2,7 @@ import React from 'react'
 
 import styles from './Records.module.scss'
 import { useSelector } from 'react-redux'
+import { renderTime } from './Records.service'
 
 function Records() {
     const { longestRide, longestRun } = useSelector(state => state.outdoorActivity)
@@ -10,16 +11,16 @@ function Records() {
         <div className={styles.records}>
             <p className={styles.title}>Longest ride:</p>
             <div className={styles.data}>
-                <span>{longestRide.date}</span>
-                <span>{longestRide.activityDistance}</span>
-                <span>{longestRide.time}</span>
+                <span>{longestRide?.date.month.slice(0, 3)} {longestRide?.date.day}</span>
+                <span>{longestRide?.distance} km</span>
+                <span>{renderTime(longestRide?.time)}</span>
             </div>
 
             <p className={styles.title}>Longest run:</p>
             <div className={styles.data}>
-                <span>{longestRun.date}</span>
-                <span>{longestRun.activityDistance}</span>
-                <span>{longestRun.time}</span>
+                <span>{longestRun?.date.month.slice(0, 3)} {longestRun?.date.day}</span>
+                <span>{longestRun?.distance} km</span>
+                <span>{renderTime(longestRun?.time)}</span>
             </div>
         </div>
     )
