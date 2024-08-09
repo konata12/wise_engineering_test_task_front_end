@@ -1,8 +1,8 @@
 import React from 'react'
-
-import styles from './Records.module.scss'
 import { useSelector } from 'react-redux'
 import { renderTime } from './Records.service'
+
+import styles from './Records.module.scss'
 
 function Records() {
     const { longestRide, longestRun } = useSelector(state => state.outdoorActivity)

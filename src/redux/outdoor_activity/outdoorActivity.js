@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
 import axios from "../../utils/axios";
 
 const initialState = {
@@ -7,7 +7,10 @@ const initialState = {
     longestRide: null,
     totalRunDistance: null,
     totalRideDistance: null,
-    loading: false
+
+    trackerData: null,
+    loading: false,
+    message: null,
 }
 
 export const getOutdoorActivities = createAsyncThunk(
@@ -15,22 +18,32 @@ export const getOutdoorActivities = createAsyncThunk(
     async () => {
         try {
             const { data } = await axios.get('/outdoor-activity')
-            console.log(data)
 
             return data
         } catch (error) {
-
+            console.log(error)
+            return isRejectedWithValue(error.response.data)
         }
     }
 )
 
 export const postOutdoorActivity = createAsyncThunk(
     'outdoorActivity/postOutdoorActivity',
-    async () => {
+    async (data) => {
         try {
-
+            const reqData = {
+                startTime: data.startTime,
+                finishTime: data.finishTime,
+                activityDistance: +data.distance,
+                activityType: data.activityType,
+            }
+            console.log(reqData)
+            const { resData } = await axios.post('/outdoor-activity', reqData)
+            console.log(123, data)
+            console.log(resData)
+            return resData
         } catch (error) {
-
+            console.log(error)
         }
     }
 )
@@ -38,9 +51,14 @@ export const postOutdoorActivity = createAsyncThunk(
 const outdoorActivitySlice = createSlice({
     name: 'outdoorActivity',
     initialState,
-    reducers: {},
+    reducers: {
+        setTrackerData: (state, action) => {
+            state.data = action.payload;
+        }
+    },
     extraReducers(builder) {
         builder
+            // get all activities
             .addCase(getOutdoorActivities.pending, (state) => {
                 state.loading = true
             })
@@ -54,13 +72,26 @@ const outdoorActivitySlice = createSlice({
             })
             .addCase(getOutdoorActivities.rejected, (state, action) => {
                 state.loading = false
+                state.message = action.payload?.message
                 state.activities = null
                 state.longestRun = null
                 state.longestRide = null
                 state.totalRunDistance = null
                 state.totalRideDistance = null
             })
+
+            // post activity
+            .addCase(postOutdoorActivity.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(postOutdoorActivity.fulfilled, (state, action) => {
+                state.loading = false
+            })
+            .addCase(postOutdoorActivity.rejected, (state, action) => {
+                state.loading = false
+            })
     }
 })
 
+export const { setTrackerData } = outdoorActivitySlice.actions;
 export default outdoorActivitySlice.reducer

@@ -1,7 +1,7 @@
 import React from 'react'
+import { renderTime } from './RecentActivity.service'
 
 import styles from './RecentActivity.module.scss'
-import { renderTime } from './RecentActivity.service'
 
 function RecentActivity({ date, activityType, distance, time, speed }) {
     return (
