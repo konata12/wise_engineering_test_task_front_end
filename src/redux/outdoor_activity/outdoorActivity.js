@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, isRejectedWithValue } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "../../utils/axios";
 
 const initialState = {
@@ -8,28 +8,28 @@ const initialState = {
     totalRunDistance: null,
     totalRideDistance: null,
 
-    trackerData: null,
+    formSubmissinTracker: null,
     loading: false,
     message: null,
 }
 
 export const getOutdoorActivities = createAsyncThunk(
     'outdoorActivity/getOutdoorActivities',
-    async () => {
+    async (_, { rejectWithValue }) => {
         try {
             const { data } = await axios.get('/outdoor-activity')
 
             return data
         } catch (error) {
             console.log(error)
-            return isRejectedWithValue(error.response.data)
+            return rejectWithValue(error.response.data)
         }
     }
 )
 
 export const postOutdoorActivity = createAsyncThunk(
     'outdoorActivity/postOutdoorActivity',
-    async (data) => {
+    async (data, { rejectWithValue }) => {
         try {
             const reqData = {
                 startTime: data.startTime,
@@ -37,13 +37,12 @@ export const postOutdoorActivity = createAsyncThunk(
                 activityDistance: +data.distance,
                 activityType: data.activityType,
             }
-            console.log(reqData)
             const { resData } = await axios.post('/outdoor-activity', reqData)
-            console.log(123, data)
-            console.log(resData)
+
             return resData
         } catch (error) {
             console.log(error)
+            return rejectWithValue(error.response.data)
         }
     }
 )
@@ -53,7 +52,7 @@ const outdoorActivitySlice = createSlice({
     initialState,
     reducers: {
         setTrackerData: (state, action) => {
-            state.data = action.payload;
+            state.formSubmissinTracker = action.payload
         }
     },
     extraReducers(builder) {
@@ -72,7 +71,9 @@ const outdoorActivitySlice = createSlice({
             })
             .addCase(getOutdoorActivities.rejected, (state, action) => {
                 state.loading = false
-                state.message = action.payload?.message
+                state.message = action.payload?.error
+                console.log(state.message)
+
                 state.activities = null
                 state.longestRun = null
                 state.longestRide = null
@@ -84,11 +85,13 @@ const outdoorActivitySlice = createSlice({
             .addCase(postOutdoorActivity.pending, (state) => {
                 state.loading = true
             })
-            .addCase(postOutdoorActivity.fulfilled, (state, action) => {
+            .addCase(postOutdoorActivity.fulfilled, (state) => {
                 state.loading = false
             })
             .addCase(postOutdoorActivity.rejected, (state, action) => {
                 state.loading = false
+                state.message = action.payload?.error
+                console.log(state.message)
             })
     }
 })

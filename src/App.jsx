@@ -11,17 +11,16 @@ import styles from './App.module.scss'
 
 function App() {
   const dispatch = useDispatch()
-  const { activities, trackerData } = useSelector(state => state.outdoorActivity)
+  const { activities, formSubmissinTracker } = useSelector(state => state.outdoorActivity)
 
   useEffect(() => {
-    console.log('anus')
     dispatch(getOutdoorActivities())
-  }, [dispatch, trackerData])
+  }, [dispatch, formSubmissinTracker])
 
   return (
     <div className="container">
-      <Header></Header>
-      <TrackerForm></TrackerForm>
+      <Header />
+      <TrackerForm formSubmissinTracker={formSubmissinTracker} />
       <div className={styles.activities_data}>
         <div className={styles.recent_activities}>
           {
@@ -37,8 +36,8 @@ function App() {
           }
         </div>
         <div className={styles.summarized_activities}>
-          <Records></Records>
-          <Total></Total>
+          <Records />
+          <Total />
         </div>
       </div>
     </div>

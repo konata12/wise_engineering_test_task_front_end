@@ -14,11 +14,11 @@
         -moz-border-radius: $border-radius-big;
         -ms-border-radius: $border-radius-big;
         -o-border-radius: $border-radius-big;
-    
+
         .title {
             font-size: 18px;
         }
-    
+
         input {
             padding: 10px 5px;
             border: 1px solid rgb(143, 143, 143);
@@ -27,23 +27,23 @@
             -moz-border-radius: $border-radius-small;
             -ms-border-radius: $border-radius-small;
             -o-border-radius: $border-radius-small;
-    
+
             &:focus {
                 outline: none;
             }
-    
+
             &::placeholder {
                 color: rgb(143, 143, 143);
                 font-family: 'Roboto';
             }
-    
+
             &[type="number"]::-webkit-inner-spin-button,
             &[type="number"]::-webkit-outer-spin-button {
                 -webkit-appearance: none;
                 margin: 0;
             }
         }
-    
+
         select {
             padding: 10px 5px;
             border: 1px solid rgb(143, 143, 143);
@@ -52,12 +52,12 @@
             -moz-border-radius: $border-radius-small;
             -ms-border-radius: $border-radius-small;
             -o-border-radius: $border-radius-small;
-    
+
             &:focus-visible {
                 outline: none;
             }
         }
-    
+
         button {
             padding: 10px 40px;
             color: #fff;
@@ -88,6 +88,10 @@
             -moz-border-radius: $border-radius-small;
             -ms-border-radius: $border-radius-small;
             -o-border-radius: $border-radius-small;
+        }
+
+        &:empty {
+            margin: 0;
         }
     }
 }

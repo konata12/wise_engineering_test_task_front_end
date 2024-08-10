@@ -6,7 +6,7 @@ import { createRegisterOptions, validateTime } from './TrackerForm.service'
 
 import styles from './TrackerForm.module.scss'
 
-function TrackerForm() {
+function TrackerForm({ formSubmissinTracker }) {
     const [finishTimeBiggerThanStart, setFinishTimeBiggerThanStart] = useState(true)
     const dispatch = useDispatch()
     const {
@@ -22,13 +22,13 @@ function TrackerForm() {
     })
     const [startTimeValue, finishTimeValue] = watch(['startTime', 'finishTime'])
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         const startDate = Date.parse(`2000-01-01T${data.startTime}:00`)
         const finishDate = Date.parse(`2000-01-01T${data.finishTime}:00`)
         const totalTime = finishDate - startDate
         if (totalTime > 0) {
-            dispatch(postOutdoorActivity(data))
-            dispatch(setTrackerData(data))
+            await dispatch(postOutdoorActivity(data))
+            dispatch(setTrackerData(!formSubmissinTracker))
             setFinishTimeBiggerThanStart(true)
         } else {
             setFinishTimeBiggerThanStart(false)
